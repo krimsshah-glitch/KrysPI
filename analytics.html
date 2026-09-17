@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KrysPI | Analytics</title>
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}?v=2">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <img
+                src="{{ url_for('static', filename='logo.png') }}"
+                class="brand-logo"
+                alt="KrysPI Logo"
+            >
+
+            <div>
+                <div class="brand-name">KrysPI</div>
+                <div class="brand-motto">
+                    Track. Plan. Spend Smarter.
+                </div>
+            </div>
+
+        </div>
+
+        <nav>
+
+            <a href="/dashboard" class="nav-link">
+                🏠 Dashboard
+            </a>
+
+            <a href="/add-expense" class="nav-link">
+                ➕ Add Expense
+            </a>
+
+            <a href="/expense-history" class="nav-link">
+                📋 Expense History
+            </a>
+
+            <a href="/analytics" class="nav-link active">
+                📊 Analytics
+            </a>
+
+            <a href="/budget" class="nav-link">
+                💰 Budget
+            </a>
+
+            <a href="/savings" class="nav-link">
+                🎯 Savings
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="current-user">
+                👤 {{ user }}
+            </div>
+
+            <a href="/switch-user" class="switch-user">
+                ⇄ Switch User
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <section class="hero">
+
+            <p class="eyebrow">
+                YOUR MONEY, EXPLAINED
+            </p>
+
+            <h1>
+                Your Money, Explained 📊
+            </h1>
+
+            <p>
+                Numbers are much less scary when they come with
+                pretty graphs.
+            </p>
+
+        </section>
+
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Total Spending
+                </span>
+
+                <h2>
+                    ₹{{ "%.2f"|format(total) }}
+                </h2>
+
+                <p>
+                    Across all recorded expenses
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Top Category
+                </span>
+
+                <h2>
+                    {{ top_category }}
+                </h2>
+
+                <p>
+                    ₹{{ "%.2f"|format(top_category_amount) }}
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Expenses Recorded
+                </span>
+
+                <h2>
+                    {{ transaction_count }}
+                </h2>
+
+                <p>
+                    Keep tracking!
+                </p>
+
+            </div>
+
+        </section>
+
+
+        {% if category_chart %}
+
+        <section class="dashboard-card chart-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Where Your Money Goes 💸
+                    </h2>
+
+                    <p>
+                        A category-wise breakdown of your spending.
+                        Basically, where your money keeps disappearing.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <img
+                src="{{ url_for('static', filename=category_chart) }}"
+                alt="Category spending chart"
+                class="chart-image"
+            >
+
+        </section>
+
+
+        <section class="dashboard-card chart-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Your Spending Journey 📈
+                    </h2>
+
+                    <p>
+                        See how your spending changes across different dates.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <img
+                src="{{ url_for('static', filename=date_chart) }}"
+                alt="Spending over time chart"
+                class="chart-image"
+            >
+
+        </section>
+
+        {% else %}
+
+        <section class="dashboard-card">
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Not enough data yet
+                </h3>
+
+                <p>
+                    Add some expenses and your analytics will appear here.
+                </p>
+
+                <a href="/add-expense" class="primary-button small-button">
+                    Add Expense →
+                </a>
+
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+        <footer class="site-footer">
+
+            <strong>
+                Made by Krimsi Shah, 2026
+            </strong>
+
+            <span>
+                Email: krimsshah@gmail.com
+            </span>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

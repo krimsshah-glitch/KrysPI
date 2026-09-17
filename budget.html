@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KrysPI | Budget</title>
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}?v=2">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <img
+                src="{{ url_for('static', filename='logo.png') }}"
+                class="brand-logo"
+                alt="KrysPI Logo"
+            >
+
+            <div>
+                <div class="brand-name">KrysPI</div>
+                <div class="brand-motto">
+                    Track. Plan. Spend Smarter.
+                </div>
+            </div>
+
+        </div>
+
+        <nav>
+
+            <a href="/dashboard" class="nav-link">
+                🏠 Dashboard
+            </a>
+
+            <a href="/add-expense" class="nav-link">
+                ➕ Add Expense
+            </a>
+
+            <a href="/expense-history" class="nav-link">
+                📋 Expense History
+            </a>
+
+            <a href="/analytics" class="nav-link">
+                📊 Analytics
+            </a>
+
+            <a href="/budget" class="nav-link active">
+                💰 Budget
+            </a>
+
+            <a href="/savings" class="nav-link">
+                🎯 Savings
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="current-user">
+                👤 {{ user }}
+            </div>
+
+            <a href="/switch-user" class="switch-user">
+                ⇄ Switch User
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <section class="hero">
+
+            <p class="eyebrow">
+                PLAN YOUR SPENDING
+            </p>
+
+            <h1>
+                Set Your Budget 💰
+            </h1>
+
+            <p>
+                Give yourself a spending limit and let KrysPI
+                keep you on track.
+            </p>
+
+        </section>
+
+
+        <section class="form-card centered-form">
+
+            <div class="large-icon">
+                💰
+            </div>
+
+            <h2>
+                Monthly Budget
+            </h2>
+
+            <p>
+                Your current budget is
+                <strong>₹{{ "%.2f"|format(budget) }}</strong>
+            </p>
+
+
+            <form action="/budget" method="POST">
+
+                <div class="form-group">
+
+                    <label for="budget">
+                        Enter your monthly budget
+                    </label>
+
+                    <div class="input-with-symbol">
+
+                        <span>₹</span>
+
+                        <input
+                            type="number"
+                            id="budget"
+                            name="budget"
+                            value="{{ budget }}"
+                            min="1"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button type="submit" class="primary-button">
+                    Save Budget →
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <footer class="site-footer">
+
+            <strong>
+                Made by Krimsi Shah, 2026
+            </strong>
+
+            <span>
+                Email: krimsshah@gmail.com
+            </span>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KrysPI | Dashboard</title>
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}?v=2">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <img
+                src="{{ url_for('static', filename='logo.png') }}"
+                alt="KrysPI Logo"
+                class="brand-logo"
+            >
+
+            <div>
+                <div class="brand-name">KrysPI</div>
+                <div class="brand-motto">
+                    Track. Plan. Spend Smarter.
+                </div>
+            </div>
+
+        </div>
+
+        <nav>
+
+            <a href="/dashboard" class="nav-link active">
+                🏠 Dashboard
+            </a>
+
+            <a href="/add-expense" class="nav-link">
+                ➕ Add Expense
+            </a>
+
+            <a href="/expense-history" class="nav-link">
+                📋 Expense History
+            </a>
+
+            <a href="/analytics" class="nav-link">
+                📊 Analytics
+            </a>
+
+            <a href="/budget" class="nav-link">
+                💰 Budget
+            </a>
+
+            <a href="/savings" class="nav-link">
+                🎯 Savings
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="current-user">
+                👤 {{ user }}
+            </div>
+
+            <a href="/switch-user" class="switch-user">
+                ⇄ Switch User
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <section class="hero">
+
+            <div>
+
+                <p class="eyebrow">
+                    YOUR PERSONAL MONEY SPACE
+                </p>
+
+                <h1>
+                    Hey {{ user }}! 👋
+                </h1>
+
+                <p>
+                    Let's see where your money is going
+                    without making budgeting feel like homework.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- SUMMARY CARDS -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Total Spending
+                </span>
+
+                <h2>
+                    ₹{{ "%.2f"|format(total) }}
+                </h2>
+
+                <p>
+                    Your recorded expenses
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Monthly Budget
+                </span>
+
+                <h2>
+                    ₹{{ "%.2f"|format(budget) }}
+                </h2>
+
+                <p>
+                    Your spending limit
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Money Left
+                </span>
+
+                <h2>
+                    ₹{{ "%.2f"|format(remaining) }}
+                </h2>
+
+                <p>
+                    Keep an eye on it 👀
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- BUDGET -->
+
+        <section class="dashboard-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Budget Check 💸
+                    </h2>
+
+                    <p>
+                        You've used
+                        ₹{{ "%.2f"|format(total) }}
+                        of your
+                        ₹{{ "%.2f"|format(budget) }}
+                        budget.
+                    </p>
+
+                </div>
+
+                <a href="/budget" class="text-link">
+                    Set / Edit Budget
+                </a>
+
+            </div>
+
+            <progress
+                class="progress-bar"
+                value="{{ progress }}"
+                max="100"
+            ></progress>
+
+            <div class="progress-info">
+
+                <span>
+                    {{ "%.1f"|format(progress) }}% used
+                </span>
+
+                <span>
+                    ₹{{ "%.2f"|format(remaining) }} left
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- SAVINGS -->
+
+        <section class="dashboard-card savings-dashboard">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Savings Goal 🎯
+                    </h2>
+
+                    {% if savings_goal > 0 %}
+
+                    <p>
+                        You've saved
+                        ₹{{ "%.2f"|format(saved_amount) }}
+                        towards your
+                        ₹{{ "%.2f"|format(savings_goal) }}
+                        goal.
+                    </p>
+
+                    {% else %}
+
+                    <p>
+                        Give your money a goal and start building
+                        your savings.
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+                <a href="/savings" class="text-link">
+                    Set / Edit Goal
+                </a>
+
+            </div>
+
+            <progress
+                class="progress-bar savings-progress"
+                value="{{ savings_progress }}"
+                max="100"
+            ></progress>
+
+            <div class="progress-info">
+
+                {% if savings_goal > 0 %}
+
+                <span>
+                    {{ "%.1f"|format(savings_progress) }}% saved
+                </span>
+
+                <span>
+                    ₹{{ "%.2f"|format(savings_remaining) }} to go
+                </span>
+
+                {% else %}
+
+                <span>
+                    No goal set yet
+                </span>
+
+                <span>
+                    Start saving ✨
+                </span>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <!-- RECENT EXPENSES -->
+
+        <section class="dashboard-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Recent Expenses 🧾
+                    </h2>
+
+                    <p>
+                        A quick look at your latest spending.
+                    </p>
+
+                </div>
+
+                <a href="/expense-history" class="text-link">
+                    View All
+                </a>
+
+            </div>
+
+
+            {% if recent_expenses %}
+
+            <div class="expense-list">
+
+                {% for expense in recent_expenses %}
+
+                <div class="expense-row">
+
+                    <div>
+
+                        <strong>
+                            {{ expense["Category"] }}
+                        </strong>
+
+                        <span>
+                            {{ expense["Description"] }}
+                        </span>
+
+                    </div>
+
+                    <div class="expense-right">
+
+                        <strong>
+                            ₹{{ expense["Amount"] }}
+                        </strong>
+
+                        <span>
+                            {{ expense["Date"] }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🧾
+                </div>
+
+                <h3>
+                    No expenses yet
+                </h3>
+
+                <p>
+                    Add your first expense and let's get tracking!
+                </p>
+
+                <a href="/add-expense" class="primary-button small-button">
+                    Add Expense →
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- CLEAR RECORDS -->
+
+        <section class="danger-card">
+
+            <div>
+
+                <h3>
+                    Clear Your Records
+                </h3>
+
+                <p>
+                    This removes your expenses, budget and savings
+                    data only. Other users' data stays untouched.
+                </p>
+
+            </div>
+
+            <form
+                action="/clear-records"
+                method="POST"
+                onsubmit="return confirm('Are you sure you want to clear all your records? This cannot be undone.');"
+            >
+
+                <button type="submit" class="danger-button">
+                    Clear Records
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="site-footer main-footer">
+
+            <strong>
+                Made by Krimsi Shah, 2026
+            </strong>
+
+            <span>
+                Email: krimsshah@gmail.com
+            </span>
+
+            <span>
+                © KrysPI · Built for students, because surviving college is expensive enough.
+            </span>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

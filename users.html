@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Choose User · ExpenseTrack</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body class="user-page">
+
+    <div class="user-container">
+
+        <div class="user-logo">
+            ExpenseTrack
+        </div>
+
+        <div class="user-card">
+
+            <div class="user-icon">
+                💸
+            </div>
+
+            <h1>Who's tracking today?</h1>
+
+            <p>
+                Choose your profile to see your own
+                expenses, budget and savings.
+            </p>
+
+            <form method="POST">
+
+                <label for="user">
+                    Select your name
+                </label>
+
+                <select name="user"
+                    id="user"
+                    required>
+
+                    <option value="">
+                        Choose a user
+                    </option>
+
+                    {% for user in users %}
+
+                    <option value="{{ user }}">
+                        {{ user }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+                <button type="submit"
+                    class="primary-button">
+
+                    Continue →
+
+                </button>
+
+            </form>
+
+            <div class="demo-note">
+
+                No passwords. No complicated login.
+                Just choose your profile. ✨
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

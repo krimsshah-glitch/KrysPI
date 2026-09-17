@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KrysPI | Expense History</title>
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}?v=2">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <img
+                src="{{ url_for('static', filename='logo.png') }}"
+                class="brand-logo"
+                alt="KrysPI Logo"
+            >
+
+            <div>
+                <div class="brand-name">KrysPI</div>
+                <div class="brand-motto">
+                    Track. Plan. Spend Smarter.
+                </div>
+            </div>
+
+        </div>
+
+        <nav>
+
+            <a href="/dashboard" class="nav-link">
+                🏠 Dashboard
+            </a>
+
+            <a href="/add-expense" class="nav-link">
+                ➕ Add Expense
+            </a>
+
+            <a href="/expense-history" class="nav-link active">
+                📋 Expense History
+            </a>
+
+            <a href="/analytics" class="nav-link">
+                📊 Analytics
+            </a>
+
+            <a href="/budget" class="nav-link">
+                💰 Budget
+            </a>
+
+            <a href="/savings" class="nav-link">
+                🎯 Savings
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="current-user">
+                👤 {{ user }}
+            </div>
+
+            <a href="/switch-user" class="switch-user">
+                ⇄ Switch User
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <section class="hero">
+
+            <p class="eyebrow">
+                YOUR RECORDS
+            </p>
+
+            <h1>
+                Expense History 📋
+            </h1>
+
+            <p>
+                Everything you've tracked so far, all in one place.
+            </p>
+
+        </section>
+
+
+        <section class="dashboard-card">
+
+            {% if expenses %}
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for expense in expenses %}
+
+                        <tr>
+
+                            <td class="amount-cell">
+                                ₹{{ expense["Amount"] }}
+                            </td>
+
+                            <td>
+                                <span class="category-badge">
+                                    {{ expense["Category"] }}
+                                </span>
+                            </td>
+
+                            <td>
+                                {{ expense["Date"] }}
+                            </td>
+
+                            <td>
+                                {{ expense["Description"] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Nothing here yet
+                </h3>
+
+                <p>
+                    Your expense history will appear here.
+                </p>
+
+                <a href="/add-expense" class="primary-button small-button">
+                    Add Your First Expense →
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <footer class="site-footer">
+
+            <strong>
+                Made by Krimsi Shah, 2026
+            </strong>
+
+            <span>
+                Email: krimsshah@gmail.com
+            </span>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

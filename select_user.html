@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Choose Profile · ExpenseTrack</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2">
+</head>
+
+<body class="login-page">
+
+    <div class="login-container">
+
+        <div class="login-logo">
+            ExpenseTrack
+        </div>
+
+        <div class="login-icon">
+            👋
+        </div>
+
+        <h1>Welcome to ExpenseTrack</h1>
+
+        <p class="login-subtitle">
+            Pick your profile and let's keep your money organised.
+        </p>
+
+        <form method="POST" class="user-form">
+
+            <label for="user">
+                Select your name
+            </label>
+
+            <select id="user" name="user" required>
+
+                <option value="" disabled selected>
+                    Choose a user
+                </option>
+
+                {% for user in users %}
+
+                <option value="{{ user }}">
+                    {{ user }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+            <button type="submit" class="primary-button">
+                Continue →
+            </button>
+
+        </form>
+
+        <div class="login-note">
+            No passwords. No complicated login.
+            Just choose your profile. ✨
+        </div>
+
+    </div>
+
+</body>
+
+</html>

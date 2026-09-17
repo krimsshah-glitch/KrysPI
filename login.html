@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KrysPI | Track. Plan. Spend Smarter.</title>
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}?v=2">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="login-page">
+
+    <div class="login-card">
+
+        <img
+            src="{{ url_for('static', filename='logo.png') }}"
+            alt="KrysPI Logo"
+            class="login-logo"
+        >
+
+        <h1>KrysPI</h1>
+
+        <p class="motto">
+            Track. Plan. Spend Smarter.
+        </p>
+
+        <div class="login-divider"></div>
+
+        <h2>Welcome! 👋</h2>
+
+        <p class="login-text">
+            Enter your name to start tracking your expenses.
+        </p>
+
+        <form action="/select-user" method="POST">
+
+            <label for="name">
+                Your Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+                required
+                autocomplete="off"
+            >
+
+            <button type="submit" class="primary-button">
+                Enter KrysPI →
+            </button>
+
+        </form>
+
+        <div class="login-note">
+            No passwords. No complicated login.<br>
+            Just enter your name and start tracking. ✨
+        </div>
+
+        <footer class="login-footer">
+            Made by Krimsi Shah, 2026<br>
+            Email: krimsshah@gmail.com
+        </footer>
+
+    </div>
+
+</body>
+
+</html>
